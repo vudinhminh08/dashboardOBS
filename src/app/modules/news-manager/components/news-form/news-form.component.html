@@ -1,0 +1,265 @@
+<div class="news-form bg-[#fff] p-2 rounded-[8px]">
+
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+
+    <div nz-row [nzGutter]="16">
+
+      <div nz-col [nzSpan]="12">
+        <div nz-row [nzGutter]="10">
+
+          <div nz-col [nzSpan]="9" class="pb-3">
+            <div class="required pb-1">Loại tin tức</div>
+            <app-form-control>
+              <app-select
+                formControlName="globalListDetailId"
+                [options]="typeArticle$ | async"
+                [showSearch]="true"
+              ></app-select>
+            </app-form-control>
+          </div>
+
+          <div nz-col [nzSpan]="9" class="pb-3">
+            <div class="required pb-1">Nguồn bài viết</div>
+            <app-form-control>
+              <app-select
+                formControlName="source"
+                [options]="optionSourceTypeArticle"
+                (ngModelChange)="setValidateFormFollowSource($event)"
+                [showSearch]="true"
+              ></app-select>
+            </app-form-control>
+          </div>
+
+          <div nz-col [nzSpan]="6" class="pb-3">
+            <div class="pb-1">&nbsp;</div>
+            <app-form-control>
+              <app-checkbox
+                formControlName="isHot"
+                [label]="'Tin hot'"
+                [disabled]="form.controls['isHot'].disabled"
+              ></app-checkbox>
+            </app-form-control>
+          </div>
+
+          <div nz-col [nzSpan]="9" class="pb-3">
+            <div class="required pb-1">Thời điểm bắt đầu</div>
+            <app-form-control>
+              <app-datepicker
+                formControlName="startTime"
+                [placeholder]="'DD/MM/YYYY'"
+                [disabledDate]="disabledFromDate"
+              ></app-datepicker>
+            </app-form-control>
+          </div>
+
+          <div nz-col [nzSpan]="9" class="pb-3">
+            <div class="pb-1">Thời điểm kết thúc</div>
+            <app-form-control>
+              <app-datepicker
+                formControlName="endTime"
+                [placeholder]="'DD/MM/YYYY'"
+                [disabledDate]="disabledToDate"
+              ></app-datepicker>
+            </app-form-control>
+          </div>
+
+          <div nz-col [nzSpan]="6" class="pb-3">
+            <div class="required pb-1">Trạng thái</div>
+            <app-form-control>
+              <app-select
+                formControlName="status"
+                [options]="(sourceArticle === valueSourceTypeArticle.INTERNAL || (
+                sourceArticle === valueSourceTypeArticle.EXTERNAL && (statusArticle === this.valueStatuseArticle.HieuLuc || statusArticle === this.valueStatuseArticle.HetHieuLuc)
+                )) ? optionStatusNoiBo : optionStatusThuThap"
+                [showSearch]="true"
+              ></app-select>
+            </app-form-control>
+          </div>
+
+          <div nz-col [nzSpan]="20" class="pb-3">
+            <div class="required pb-1">Tiêu đề tin tức</div>
+            <app-form-control>
+              <app-input
+                formControlName="title"
+                [allowClear]="true"
+              ></app-input>
+            </app-form-control>
+          </div>
+
+          <div nz-col [nzSpan]="4" class="pb-3">
+            <div class="pb-1">&nbsp;</div>
+            <button
+              class="rounded"
+              nz-button
+              nzBlock
+              nzType="primary"
+              type="button"
+              (click)="onPreview()"
+            ><span>Preview</span>
+            </button>
+          </div>
+
+          <div nz-col [nzSpan]="24" class="pb-3">
+            <div class="pb-1">Nội dung rút gọn</div>
+            <app-form-control>
+              <app-textarea
+                formControlName="description"
+                [rows]="4"
+                [maxHeight]="'140px'"
+              ></app-textarea>
+            </app-form-control>
+          </div>
+
+          <div nz-col [nzSpan]="24" class="pb-3">
+            <div class="required pb-1">Banner</div>
+            <app-form-control>
+              <app-upload
+                formControlName="bannerB64"
+                [fileListInit]="form.controls['bannerLink'].value"
+              ></app-upload>
+            </app-form-control>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div nz-col [nzSpan]="12">
+
+        <div class="pb-3" *ngIf="sourceArticle === valueSourceTypeArticle.EXTERNAL">
+          <div class="required pb-1">Link bài viết</div>
+          <app-form-control>
+            <app-input
+              formControlName="link"
+              [allowClear]="true"
+            ></app-input>
+          </app-form-control>
+        </div>
+
+        <div *ngIf="sourceArticle === valueSourceTypeArticle.INTERNAL">
+          <nz-tabset nzType="card">
+            <nz-tab nzTitle="Nội dung tin tức">
+              <app-form-control>
+                <quill-editor
+                  class="editor"
+                  [modules]="moduleQuill"
+                  formControlName="content"
+                  [styles]="{'height': '340px'}"
+                ></quill-editor>
+              </app-form-control>
+            </nz-tab>
+            <nz-tab nzTitle="Xem mã HTML">
+
+              <div class="bg-[#f3f3f3] p-3 overflow-y-auto max-h-[400px]">
+                <code>
+                  {{form.controls['content'].value}}
+                </code>
+              </div>
+
+            </nz-tab>
+          </nz-tabset>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="text-center btn-groups">
+      <button
+        class="rounded"
+        nz-button
+        nzType="default"
+        style="min-width: 100px;"
+        type="button"
+        (click)="navigateToList()"
+      ><span>Quay lại</span>
+      </button>
+
+      <ng-container *ngIf="typeAction === 'CREATE'">
+        <button
+          class="ml-2 rounded"
+          nz-button
+          nzType="default"
+          style="min-width: 100px;"
+          type="button"
+          (click)="resetFormToDefaultValue()"
+          *hasRole="[roleUser.ADMIN, roleUser.USER]"
+        ><span>Nhập lại</span>
+        </button>
+      </ng-container>
+
+      <ng-container *ngIf="typeAction === 'UPDATE' || typeAction === 'CREATE'">
+        <button
+          class="ml-2 rounded"
+          nz-button
+          nzType="primary"
+          [nzLoading]="loadingSave"
+          type="submit"
+          style="min-width: 100px;"
+          *hasRole="[roleUser.ADMIN, roleUser.USER]"
+        ><span>Lưu</span>
+        </button>
+      </ng-container>
+
+
+      <ng-container *ngIf="sourceArticle === valueSourceTypeArticle.EXTERNAL">
+        <ng-container *ngIf="typeAction === 'VIEW'">
+          <button
+            class="ml-2 rounded"
+            nz-button
+            nzType="primary"
+            type="button"
+            style="min-width: 100px;"
+            (click)="openModalConfirmApprove(valueStatuseArticle.HieuLuc)"
+            *hasRole="[roleUser.APPROVER]"
+            [disabled]="statusArticle !== valueStatuseArticle.ChoDuyet"
+          ><span>Duyệt</span>
+          </button>
+
+          <button
+            class="ml-2 rounded"
+            nz-button
+            nzType="primary"
+            type="button"
+            style="min-width: 100px;"
+            (click)="openModalConfirmApprove(valueStatuseArticle.TuChoi)"
+            *hasRole="[roleUser.APPROVER]"
+            [disabled]="statusArticle !== valueStatuseArticle.ChoDuyet"
+          ><span>Từ chối</span>
+          </button>
+        </ng-container>
+      </ng-container>
+
+    </div>
+
+  </form>
+
+</div>
+
+
+
+<ng-template #tplContent>
+
+  <form nz-form [formGroup]="formReason">
+    <div class="required pb-1">Lý do từ chối</div>
+    <app-form-control>
+      <app-textarea
+        formControlName="reason"
+        [rows]="4"
+        [maxHeight]="'140px'"
+      ></app-textarea>
+    </app-form-control>
+  </form>
+
+</ng-template>
+
+
+<ng-template #tplPreviewContent>
+  <div [innerHtml]="form.controls['content'].value"></div>
+</ng-template>
+
+<ng-template #tplPreviewClose>
+<!--  <button nz-button nzType="text">-->
+    <i (click)="closeDrawerRef()" nz-icon nzType="close" class="cursor-pointer"></i>
+<!--  </button>-->
+</ng-template>

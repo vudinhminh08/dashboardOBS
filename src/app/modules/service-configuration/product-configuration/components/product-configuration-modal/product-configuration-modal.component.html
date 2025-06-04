@@ -1,0 +1,102 @@
+<form nz-form nzLayout="vertical" [formGroup]="form" (ngSubmit)="save()">
+  <div class="grid grid-cols-2 gap-4">
+    <div class="flex flex-col">
+      <label class="text-sm required mb-2">Dịch vụ</label>
+      <div class="col-span-6">
+        <app-form-control>
+          <app-input
+            formControlName="code" [allowClear]="true"></app-input>
+        </app-form-control>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <label class="text-sm required mb-2">Mã sản phẩm</label>
+      <div class="col-span-6">
+        <app-form-control>
+          <app-input
+            formControlName="name" [allowClear]="true"></app-input>
+        </app-form-control>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <label class="text-sm required mb-2">Tên sản phẩm</label>
+      <div class="col-span-6">
+        <app-form-control>
+          <app-input
+            formControlName="description" [allowClear]="true"></app-input>
+        </app-form-control>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <label class="text-sm required mb-2">Mô tả</label>
+      <div class="col-span-6">
+        <app-form-control>
+          <app-input
+            formControlName="description" [allowClear]="true"></app-input>
+        </app-form-control>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <label class="text-sm required mb-2">Thứ tự</label>
+      <div class="col-span-6">
+        <app-form-control>
+          <app-input
+            formControlName="priority"></app-input>
+        </app-form-control>
+      </div>
+    </div>
+    <div class="flex flex-col">
+    <div class="grid grid-cols-2 gap-1">
+      <div class="flex flex-col">
+
+      <label class="text-sm required mb-2">Hoa hồng</label>
+      <div class="col-span-6">
+        <app-form-control>
+          <app-input
+            formControlName="priority"></app-input>
+        </app-form-control>
+      </div>
+      </div>
+      <div class="flex flex-col">
+
+        <label class="text-sm required mb-2">Giá trị hoa hồng</label>
+        <div class="col-span-6">
+          <app-form-control>
+            <app-input
+              formControlName="priority"></app-input>
+          </app-form-control>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <label class="text-sm required mb-2">Có hiệu lực</label>
+      <div class="col-span-6">
+        <app-form-control>
+          <app-switch 
+            formControlName="isActive"
+            (switchChange)="onSwitchChange($event)"
+          ></app-switch>
+        </app-form-control>
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-6">
+    <button
+      type="button"
+      class="mr-2 rounded"
+      nz-button
+      nzType="primary"
+      nzGhost
+      (click)="cancel()">
+      <i nz-icon nzType="close-circle"></i>Hủy
+    </button>
+    <button
+      class="mb-2 rounded"
+      nz-button
+      nzType="primary"
+      [nzLoading]="loading$ | async">
+      <i nz-icon nzType="check-circle"></i>Lưu
+    </button>
+  </div>
+</form>

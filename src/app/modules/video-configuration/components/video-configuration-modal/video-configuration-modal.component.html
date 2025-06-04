@@ -1,0 +1,116 @@
+<form nz-form nzLayout="vertical" [formGroup]="form" (ngSubmit)="save()">
+  <div class="grid grid-cols-2 gap-4">
+    <div class="flex flex-col">
+      <label class="text-sm required mb-2">Mã video123123</label>
+      <div class="col-span-6">
+        <app-form-control>
+          <app-input
+            formControlName="videoCode"  
+            appFormatUppercase
+            [regexPatternAllow]="REGEX_USERNAME"
+            [allowClear]="true"
+          ></app-input>
+        </app-form-control>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <label class="text-sm required mb-2">Tên video</label>
+      <div class="col-span-6">
+        <app-form-control>
+          <app-input
+            formControlName="videoName" [allowClear]="true"
+          ></app-input>
+        </app-form-control>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <label class="text-sm mb-2">Số thứ tự</label>
+      <div class="col-span-6">
+        <app-form-control>
+          <app-input
+            formControlName="priority" [allowClear]="true"
+          ></app-input>
+        </app-form-control>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <label class="text-sm required mb-2">Link video</label>
+      <div class="col-span-6">
+        <app-form-control>
+          <app-input
+            formControlName="videoLink" [allowClear]="true"
+          ></app-input>
+        </app-form-control>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <label class="text-sm required mb-2">Loại video123123213</label>
+      <div class="col-span-6">
+        <app-form-control>
+          <app-select
+            formControlName="globalListDetailId"[allowClear]="true"
+            [showSearch]="true"
+            [options]="lstPartner"></app-select>
+        </app-form-control>
+      </div>
+    </div> 
+    <div class="flex flex-col">
+      <label class="text-sm mb-2">Mô tả</label>
+      <div class="col-span-6">
+        <app-form-control>
+          <app-input
+            formControlName="description" [allowClear]="true"
+          ></app-input>
+        </app-form-control>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <label class="text-sm required mb-2">Hiển thị trên trang chủ</label>
+      <div class="col-span-6">
+        <app-form-control>
+          <app-select
+            formControlName="screenHome" 
+            [allowClear]="true" 
+            [options]="lstScreenHome"
+            [showSearch]="true"></app-select>
+        </app-form-control>
+      </div>
+    </div>
+    <div class="flex flex-col" *ngIf="isUpdate">
+      <label class="text-sm mb-2">Trạng thái</label>
+      <div class="col-span-6">
+        <app-form-control>
+          <app-switch 
+            formControlName="status"
+            (switchChange)="onSwitchChange($event)"
+          ></app-switch>
+        </app-form-control>
+      </div>
+    </div>
+
+
+ 
+  </div>
+  <div class="text-right btn-groups">
+    <button
+      class="rounded"
+      nz-button
+      nzType="default"
+      style="min-width: 100px;"
+      type="button"
+      (click)="cancel()"
+    ><span>Bỏ qua</span>
+    </button>
+
+    <button
+      class="ml-2 rounded"
+      nz-button
+      nzType="primary"
+      type="submit"
+      [nzLoading]="loading$ | async"
+      style="min-width: 100px;"
+    ><span>Lưu</span>
+    </button>
+  </div>
+</form>
+

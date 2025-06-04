@@ -1,0 +1,203 @@
+<div class="card-container mb-4">
+  <section class="flex justify-between border-b">
+    <div class="flex items-center">
+      <h3 class="p-3 font-medium">Thông tin tìm kiếm</h3>
+    </div>
+    <div class="flex">
+      <ng-container> </ng-container>
+    </div>
+  </section>
+  <form nz-form [formGroup]="form">
+    <div class="grid grid-cols-4 gap-4 mt-3 mr-2">
+      <div class="ml-3">
+        <div class="mb-1">Tiêu đề banner</div>
+        <div >
+          <app-form-control>
+            <app-input formControlName="bannerName"></app-input>
+          </app-form-control>
+        </div>
+      </div>
+      <div class="">
+        <div class="mb-1">Loại banner</div>
+        <div >
+          <app-form-control>
+            <app-select
+              [placeholder]="'Tất cả'"
+              formControlName="bannerType"
+              [options]="lstBannerType"
+              [showSearch]="true"
+              [allowClear]="true"
+            ></app-select>
+          </app-form-control>
+        </div>
+      </div>
+
+      <div class="">
+        <div class="mb-1">Từ ngày</div>
+        <div >
+          <app-form-control>
+            <app-datepicker
+              formControlName="startDate"
+              [placeholder]="'DD/MM/YYYY'"
+              [disabledDate]="disabledFromDate"></app-datepicker>
+          </app-form-control>
+        </div>
+      </div> 
+      <div class="mr-1">
+        <div class="mb-1">Đến ngày </div>
+        <div >
+          <app-form-control>
+            <app-datepicker
+              formControlName="endDate"
+              [placeholder]="'DD/MM/YYYY'"
+              [disabledDate]="disabledToDate"></app-datepicker>
+          </app-form-control>
+        </div>
+      </div>
+      <div class="ml-3 ">
+        <div class="mb-1">Trạng thái</div>
+        <div >
+          <app-form-control>
+            <app-select 
+            [placeholder]="'Tất cả'"
+            formControlName="status" 
+            [options]="optionStatus" 
+            [showSearch]="true" 
+            [allowClear]="true"></app-select>
+          </app-form-control>
+        </div>
+      </div>
+    </div>
+    <div class="grid grid-cols-3 gap-4">
+
+    </div>
+    <div class="flex justify-between">
+      <div></div>
+      <div class="flex gap-5 mt-1 mb-3 mr-2">
+        <div class="flex mt-1">  
+        <button nz-button nzType="default" 
+        class="btn-submit rounded-[8px]" 
+        type="reset"
+        (click)="onClear()">
+          <span nz-icon nzType="undo" nzTheme="outline"></span>
+          Nhập lại
+        </button>
+      </div>
+        <div class="flex mt-1">
+          <button nz-button nzType="primary"
+           class="btn-submit rounded-[8px] mr-1"
+            type="submit"
+            (click)="findItems()">
+            <span nz-icon nzType="search" nzTheme="outline"></span>
+            Tìm kiếm
+          </button>
+  
+        </div>
+      </div>
+  
+    </div>
+  </form>
+</div>
+<div class="card-container mb-4">
+  <section class="flex justify-between border-b">
+    <div class="flex items-center">
+      <h3 class=" p-3 font-medium">Kết quả tìm kiếm</h3>
+    </div>
+    <div class="flex gap-2 mt-3 mb-3 mr-2">
+      <button nz-button nzType="primary" class="btn-submit rounded-[8px] mr-1" type="button" (click)="openModalService()">
+        <span nz-icon nzType="plus" nzTheme="outline"></span>
+        Thêm mới
+      </button>
+    </div>
+  </section>
+
+  <div class="table-list p-3">
+    <div class="basis-0 grow shrink">
+    <app-table
+    [columns]="columns"
+    [items]="items"
+    [pagination]="pagination"
+    [scrollX]="'900px'"
+    (queryParams)="onQueryParams($event)"
+    [displayColumns]="displayColumns"
+    [showIndex]="true"
+    [loading]="loading$ | async">
+
+      <ng-template [appCellTemplate]="'actions'" let-item>
+        <div class="flex items-center justify-center">
+        <button nz-button nzType="text" (click)="onEditItem(item)"
+          class="cursor-pointer">
+          <i
+            nz-icon
+            nzType="edit"
+            nzTheme="outline"
+            nz-tooltip
+            nzTooltipTitle="Chỉnh sửa"></i>
+        </button>
+        <button [disabled]="item.bannerType === 'SCREEN_BANNER'" nz-button nzType="text" (click)="onDeleteItem(item)"
+        class="cursor-pointer">
+        <i
+          nz-icon
+          nzType="delete"
+          nzTheme="outline"
+          nz-tooltip
+          nzTooltipTitle="Xoá"></i>
+      </button>
+      </div>
+      </ng-template>
+
+ 
+      <!-- <ng-template [appCellTemplate]="'status'" let-item>
+        {{item.status == 1 ? "Hoạt động" : "Không hoạt động"}}
+      </ng-template> -->
+      <ng-template [appCellTemplate]="'status'" let-item>
+        <div class="text-center">
+          <app-switch [ngModel]="item.status" (switchChange)="onSwitchStatus(item)"></app-switch>
+        </div>
+      </ng-template>
+      <ng-template [appCellTemplate]="'bannerType'" let-item>
+        <div class="text-left">
+          <span> {{item.bannerType | optionLabel: lstBannerType}}</span> 
+        </div>
+      </ng-template>
+    </app-table>
+
+    <app-confirmation
+    *ngIf="typeConfirm === 'switchStatus'"
+      [confirmation]="switchStatusTpl"
+      (confirmed)="confirmSwitchStatus($event)">
+    </app-confirmation>
+
+    <ng-template #switchStatusTpl>
+      <div class="text-left flex">
+        <div class="flex flex-[35px_0_0] items-center justify-center">
+          <i class="text-[20px]" [ngStyle]="{color: 'var(--primary)'}" nz-icon
+            nzType="question-circle" nzTheme="outline"></i>
+        </div>
+        <div class="flex-[1_0_0] pl-2">
+          <div class="font-500 pb-1">Thay đổi trạng thái banner</div>
+          <div>Bạn muốn thay đổi trạng thái banner này?</div>
+        </div>
+      </div>
+    </ng-template>
+
+    <app-confirmation
+    *ngIf="typeConfirm === 'delete'"
+    [confirmation]="deleteBn"
+    (confirmed)="confirmDelete($event)"
+    ></app-confirmation>
+    
+    <ng-template #deleteBn>
+    <div class="text-left flex">
+      <div class="flex flex-[35px_0_0] items-center justify-center">
+        <i class="text-[20px]" [ngStyle]="{color: 'var(--primary)'}" nz-icon nzType="question-circle" nzTheme="outline"></i>
+      </div>
+      <div class="flex-[1_0_0] pl-2">
+        <div class="font-500 pb-1">Xoá banner</div>
+        <div>Bạn muốn xoá banner?</div>
+      </div>
+    </div>
+    </ng-template>
+    </div>
+  </div>
+</div>

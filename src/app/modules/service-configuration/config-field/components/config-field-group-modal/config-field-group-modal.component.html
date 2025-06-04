@@ -1,0 +1,80 @@
+<form nz-form nzLayout="vertical" [formGroup]="form" (ngSubmit)="save()">
+  <div class="grid grid-cols-2 gap-4">
+    <div class="flex flex-col">
+      <label class="text-sm required mb-2">Mã nhóm dịch vụ</label>
+      <div class="col-span-6">
+        <app-form-control>
+          <app-input
+            formControlName="code"
+            appFormatUppercase
+            [regexPatternAllow]="REGEX_USERNAME"
+            [allowClear]="true"
+          ></app-input>
+        </app-form-control>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <label class="text-sm required mb-2">Tên nhóm dịch vụ</label>
+      <div class="col-span-6">
+        <app-form-control>
+          <app-input
+            formControlName="name" [allowClear]="true"
+          ></app-input>
+        </app-form-control>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <label class="text-sm mb-2">Mô tả</label>
+      <div class="col-span-6">
+        <app-form-control>
+          <app-input
+            formControlName="description"  [allowClear]="true"
+          ></app-input>
+        </app-form-control>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <label class="text-sm  mb-2">Thứ tự</label>
+      <div class="col-span-6">
+        <app-form-control>
+          <app-input
+            formControlName="orderServiceGroup" [allowClear]="true"
+          ></app-input>
+        </app-form-control>
+      </div>
+    </div>
+    <div class="flex flex-col" *ngIf="isUpdate">
+      <label class="text-sm mb-2">Trạng thái </label>
+      <div class="col-span-6">
+        <app-form-control>
+          <app-switch 
+            formControlName="status"
+            (switchChange)="onSwitchChange($event)"
+          ></app-switch>
+        </app-form-control>
+      </div>
+    </div>
+ 
+  </div>
+  <div class="text-right btn-groups mt-3">
+    <button
+      class="rounded"
+      nz-button
+      nzType="default"
+      style="min-width: 100px;"
+      type="button"
+      (click)="cancel()"
+    ><span>Bỏ qua</span>
+    </button>
+
+    <button
+      class="ml-2 rounded"
+      nz-button
+      nzType="primary"
+      type="submit"
+      style="min-width: 100px;"
+      [nzLoading]="loading$ | async"
+    ><span>Lưu</span>
+    </button>
+  </div>
+</form>

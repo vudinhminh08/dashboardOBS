@@ -1,0 +1,244 @@
+<div class="card-container mb-4">
+    <section class="flex justify-between border-b">
+      <div class="flex items-center">
+        <h3 class="p-3 font-medium">Thông tin tìm kiếm</h3>
+      </div>
+      <div class="flex">
+        <ng-container> </ng-container>
+      </div>
+    </section>
+    <form nz-form [formGroup]="form" (ngSubmit)="onSearch()">
+      <div class="grid grid-cols-3 gap-4 mt-3">
+        <div class="ml-3">
+          <div class="mb-1">Đối tác</div>
+          <div >
+            <app-form-control>
+              <app-select 
+              formControlName="globalListDetailId" 
+              [options]="optionGlobalList" 
+              [placeholder]="'Tất cả'" 
+              [showSearch]="true"
+              [allowClear]="true" 
+              (ngModelChange)="onSearch()"
+              ></app-select>
+            </app-form-control>
+          </div>
+        </div>
+        <div class="">
+          <div class="mb-1">Lĩnh vực</div>
+          <div >
+            <app-form-control>
+              <app-select 
+              formControlName="businessDomainId"
+               [options]="optionBusinessDomain"
+               [allowClear]="true" [placeholder]="'Tất cả'" 
+               [showSearch]="true"
+               (ngModelChange)="changeBD($event); onSearch()"
+               ></app-select>
+            </app-form-control>
+          </div>
+        </div>
+        <div class="mr-3">
+          <div class="mb-1">Nhóm dịch vụ</div>
+          <div >
+            <app-form-control>
+              <app-select 
+              formControlName="serviceGroupId"
+              [allowClear]="true" 
+              [placeholder]="'Tất cả'" 
+              [showSearch]="true"
+              [options]="optionServiceGroup" 
+              (ngModelChange)="onSearch()"></app-select>
+            </app-form-control>
+          </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-4 mt-2">
+        <div class="ml-3">
+          <div class="mb-1">Mã dịch vụ</div>
+          <div >
+            <app-form-control>
+              <app-input formControlName="serviceCode" ></app-input>
+            </app-form-control>
+          </div>
+        </div>
+        <div class="">
+          <div class="mb-1">Tên dịch vụ</div>
+          <div >
+            <app-form-control>
+              <app-input formControlName="serviceName" ></app-input>
+            </app-form-control>
+          </div>
+        </div>
+        <div class="mr-3">
+          <div class="mb-1">Trạng thái</div>
+          <div >
+            <app-form-control>
+              <app-select 
+              [placeholder]="'Tất cả'" 
+              formControlName="status" 
+              [options]="optionStatus" 
+              [showSearch]="true" 
+              [allowClear]="true"
+              (ngModelChange)="onSearch()"
+              ></app-select>
+            </app-form-control>
+          </div>
+        </div>
+        <div class="ml-3">
+          <div class="mb-1">Hiển thị màn hình chính</div>
+          <div >
+            <app-form-control>
+              <app-select 
+              [placeholder]="'Tất cả'"
+              formControlName="screenHome" 
+              [options]="optionScreenHome" 
+              [showSearch]="true" 
+              [allowClear]="true"
+              (ngModelChange)="onChangeHome($event); onSearch()"></app-select>
+            </app-form-control>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-between">
+      <div></div>
+            <div class="flex mt-1 mb-2 mr-3">
+              <button  nz-button nzType="primary"
+              class="btn-submit rounded-[8px]"
+               type="submit">
+               <span nz-icon nzType="search" nzTheme="outline"></span>
+                Tìm kiếm
+              </button>
+           
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="card-container mb-4">
+    <section class="flex justify-between border-b">
+      <div class="flex items-center">
+        <h3 class="p-3 font-medium">Danh sách dịch vụ</h3>
+      </div>
+      <div class="flex gap-2 mt-3 mb-3 mr-2">
+        <button *ngIf="!isCheckPriorityMain"  nz-button nzType="primary"
+        class="btn-submit rounded-[8px]"
+         type="submit"
+         (click)="updatePrioryty()" [disabled]="!checkDisable()">
+        <span nz-icon nzType="icons:icn-reload"></span>
+          Cập nhật thứ tự
+        </button>
+        <button *ngIf="isCheckPriorityMain" nz-button nzType="primary"
+        class="btn-submit rounded-[8px]"
+         type="submit"
+         (click)="updatePriorytyMain()" [disabled]="!checkDisableHome()">
+        <span nz-icon nzType="icons:icn-reload"></span>
+          Cập nhật thứ tự
+        </button>
+        <button  nz-button nzType="primary"
+        class="btn-submit rounded-[8px] mr-1"
+         type="submit"
+        (click)="createItem()">
+        <span nz-icon nzType="plus" nzTheme="outline"></span>
+          Thêm mới
+        </button>
+      </div>
+    </section>
+  
+    <div class="table-list p-3">
+      <div class="basis-0 grow shrink">
+        <nz-table [nzBordered]="true" nzTableLayout="fixed" [nzFrontPagination]="false" [nzData]="lstService" [nzScroll]="{ x: '100%', y: '400px' }">
+          <thead>
+            <tr>
+              <th nzAlign="center" nzWidth="50px"></th>
+              <th nzAlign="center" nzWidth="50px">STT</th>
+              <th nzAlign="center" nzWidth="70px" class="cursor-pointer" nzRight>Thao tác</th>
+              <th nzAlign="center" nzWidth="150px">Mã dịch vụ</th>
+              <th nzAlign="center" nzWidth="150px">Tên dịch vụ</th>
+              <th nzAlign="center" nzWidth="150px">Đối tác</th>
+              <th nzAlign="center" nzWidth="250px">Lĩnh vực</th>
+              <th nzAlign="center" nzWidth="150px">Nhóm dịch vụ</th>
+              <th nzAlign="center" nzWidth="250px">Mô tả</th>
+              <th nzAlign="center" nzWidth="100px">Trạng thái</th>
+
+            </tr>
+          </thead>
+          <tbody cdkDropList (cdkDropListDropped)="onDrop($event)">
+              <tr class="cursor-pointer" *ngFor="let x of lstService; let i = index" cdkDrag>
+                <td nzRight class="text-center">
+                  <span nz-icon nzType="drag" nzTheme="outline"></span>
+                </td>
+                <td nzAlign="center">
+                  {{ i + 1 }}
+                </td>
+                <td nzRight class="text-center">
+                  <button (click)="updateItem(x)">
+                    <i class="cursor-pointer" nz-icon nzType="edit" nzTheme="outline" style="padding: 0 5px"    nz-tooltip
+                    nzTooltipTitle="Chỉnh sửa"></i>
+                  </button>
+                </td>
+                <td nzAlign="left" nzEllipsis>
+                  {{ x.serviceCode }}
+                </td>
+                <td nzAlign="left" nzEllipsis>
+                  {{ x.serviceName }}
+                </td>
+                <td nzAlign="left" nzEllipsis>
+                  {{ x.globalListDetailName }}
+                </td>  
+                <td nzAlign="left" nzEllipsis>
+                  {{ x.businessDomainName }}
+                </td>                              
+                <td nzAlign="left" nzEllipsis>
+                  {{ x.serviceGroupName }}
+                </td>
+                <td nzAlign="left" nzEllipsis>
+                  {{ x.description }}
+                </td>
+                <td>
+                  <div class="text-center">
+                    <app-switch [ngModel]="x.status" (switchChange)="onSwitchStatus(x)"></app-switch>
+                  </div>
+                </td>
+       
+              </tr>
+          </tbody>
+        </nz-table>
+        </div>
+    </div>
+  </div>
+
+  <!-- <app-confirmation
+*ngIf="typeConfirm === 'updatePriority'"
+  [confirmation]="priority"
+  (confirmed)="updatePrioryty($event)"
+></app-confirmation> -->
+
+<ng-template #priority>
+  <div class="text-left flex">
+    <div class="flex flex-[35px_0_0] items-center justify-center">
+      <i class="text-[20px]" [ngStyle]="{color: 'var(--primary)'}" nz-icon nzType="question-circle" nzTheme="outline"></i>
+    </div>
+    <div class="flex-[1_0_0] pl-2">
+      <div class="font-500 pb-1">Đặt lại vị trí</div>
+      <div>Bạn muốn sắp xếp lại vị trí?</div>
+    </div>
+  </div>
+</ng-template>
+
+<app-confirmation
+*ngIf="typeConfirm === 'switchStatus'"
+[confirmation]="switchStatusTpl"
+(confirmed)="confirmSwitchStatus($event)"
+></app-confirmation>
+
+<ng-template #switchStatusTpl>
+<div class="text-left flex">
+  <div class="flex flex-[35px_0_0] items-center justify-center">
+    <i class="text-[20px]" [ngStyle]="{color: 'var(--primary)'}" nz-icon nzType="question-circle" nzTheme="outline"></i>
+  </div>
+  <div class="flex-[1_0_0] pl-2">
+    <div class="font-500 pb-1">Thay đổi trạng thái dịch vụ</div>
+    <div>Bạn muốn thay đổi trạng thái dịch vụ này?</div>
+  </div>
+</div>
+</ng-template>

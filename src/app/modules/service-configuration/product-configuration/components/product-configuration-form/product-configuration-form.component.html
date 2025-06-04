@@ -1,0 +1,127 @@
+<div class="card-container mb-4">
+  <section class="flex justify-between border-b mb-4 pb-3">
+    <div class="flex items-center">
+      <h2 class="text-xl mr-2">Thông tin tìm kiếm</h2>
+    </div>
+    <div class="flex">
+      <ng-container> </ng-container>
+    </div>
+  </section>
+  <form nz-form [formGroup]="form">
+    <div class="grid grid-cols-3 gap-4">
+      <div class="ml-3">
+        <div class="">Dịch vụ</div>
+        <div class>
+          <app-form-control>
+            <app-input formControlName="code"></app-input>
+          </app-form-control>
+        </div>
+      </div>
+      <div class="ml-3">
+        <div class="">Mã sản phẩm</div>
+        <div class>
+          <app-form-control>
+            <app-input formControlName="code"></app-input>
+          </app-form-control>
+        </div>
+      </div>
+      <div class="ml-3 ">
+        <div class=" ">Tên sản phẩm</div>
+        <div class>
+          <app-form-control>
+            <app-input formControlName="name"></app-input>
+          </app-form-control>
+        </div>
+      </div>
+  
+    </div>
+    <div class="grid grid-cols-3 gap-4">
+      <div class="ml-3 ">
+        <div class="">Trạng thái</div>
+        <div class>
+          <app-form-control>
+            <app-select formControlName="status" [options]="optionStatus"></app-select>
+          </app-form-control>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-between">
+    <div></div>
+          <div class="flex mt-1">
+            <button type="button"
+        class="mr-2 rounded"
+        nz-button
+        nzType="primary"
+         nz-button (click)="onSearch()">
+              Tìm kiếm
+            </button>
+         
+      </div>
+    </div>
+  </form>
+</div>
+<div class="card-container mb-4">
+  <section class="flex justify-between border-b mb-4 pb-3">
+    <div class="flex items-center">
+      <h2 class="text-xl mr-2">Kết quả tìm kiếm</h2>
+    </div>
+    <div class="flex gap-2">
+      <button type="button"
+        class="mr-2 rounded"
+        nz-button
+        nzType="primary"
+         nz-button (click)="openModalService()">
+        Thêm mới
+      </button>
+    </div>
+  </section>
+  <div class="basis-1/2">
+      <nz-table [nzBordered]="true" nzTableLayout="fixed" [nzFrontPagination]="false" [nzData]="data" [nzScroll]="{ x: '100%', y: '400px' }">
+        <thead>
+          <tr>
+            <th nzAlign="center" nzWidth="50px">STT</th>
+            <th nzAlign="center" nzWidth="150px">Mã lĩnh vực</th>
+            <th nzAlign="center" nzWidth="150px">Tên lĩnh vực</th>
+            <th nzAlign="center" nzWidth="250px">Mô tả</th>
+            <th nzAlign="center" nzWidth="100px">Trạng thái</th>
+            <th nzAlign="center" nzWidth="80px">Thao tác</th>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody >
+            <tr class="cursor-pointer" *ngFor="let x of data; let i = index" >
+              <td nzAlign="center">
+                {{ i + 1 }}
+              </td>
+              <td nzAlign="center">
+                {{ x.code }}
+              </td>
+              <td nzAlign="center">
+                {{ x.name }}
+              </td>
+              <td nzAlign="center">
+                {{ x.description }}
+              </td>
+              <td>
+                {{ x.status }}
+              </td>
+              <td nzRight class="text-center">
+                <button (click)="onEditItem(x)">
+                  <i class="cursor-pointer" nz-icon nzType="edit" nzTheme="outline" style="padding: 0 5px"    nz-tooltip
+                  nzTooltipTitle="Chỉnh sửa"></i>
+                </button>
+
+             
+              </td>
+            </tr>
+        </tbody>
+      </nz-table>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<div>
+<!--  <h3 class="border-b py-3 mb-3 mt-[-14px] font-medium">-->
+<!--    Thông tin tài khoản-->
+<!--  </h3>-->
+
+  <form [formGroup]="form">
+
+    <div nz-row [nzGutter]="10">
+
+      <div nz-col [nzSpan]="12" class="pb-2">
+        <div class="pb-1">Tài khoản</div>
+        <app-form-control>
+          <app-input
+            formControlName="userName"
+          ></app-input>
+        </app-form-control>
+      </div>
+
+      <div nz-col [nzSpan]="12" class="pb-2">
+        <div class="pb-1">Họ và tên</div>
+        <app-form-control>
+          <app-input
+            formControlName="fullName"
+          ></app-input>
+        </app-form-control>
+      </div>
+
+      <div nz-col [nzSpan]="12" class="pb-4">
+        <div class="pb-1">Số điện thoại</div>
+        <app-form-control>
+          <app-input
+            formControlName="phoneNumber"
+          ></app-input>
+        </app-form-control>
+      </div>
+
+      <div nz-col [nzSpan]="12" class="pb-4">
+        <div class="pb-1">Email</div>
+        <app-form-control>
+          <app-input
+            formControlName="email"
+          ></app-input>
+        </app-form-control>
+      </div>
+
+      <div nz-col [nzSpan]="24" class="text-right">
+        <button
+          class="rounded"
+          nz-button
+          nzType="default"
+          (click)="closeModal()"
+          style="min-width: 100px;"
+          type="button"
+        ><span>Đóng</span>
+        </button>
+
+      </div>
+
+    </div>
+
+  </form>
+
+</div>
+

@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "k8s",
+			"path": "../../../../Downloads/cms-admin/cms-admin/k8s"
+		},
+		{
+			"name": "cms-admin",
+			"path": "."
+		}
+	],
+	"settings": {}
+}

@@ -1,0 +1,44 @@
+<div class="bg-[#fff] mt-3 rounded-[8px]">
+
+    <h3 class="border-b p-3 font-medium flex justify-between items-center">
+        <span>Danh sách cấu hình chi tiết danh mục {{selectedCategory?.name || ''}}</span>
+
+        <button nz-button nzType="primary" class="btn-submit rounded-[8px]" type="button" (click)="openDialogAddNewDetailCategory()">
+            <span nz-icon nzType="plus" nzTheme="outline"></span>
+            Thêm mới
+        </button>
+    </h3>
+
+    <div class="table-list p-3">
+        <div class="basis-0 grow shrink">
+            <app-table
+                    [columns]="columns"
+                    [items]="items"
+                    [pagination]="pagination"
+                    [scrollX]="'900px'"
+                    [displayColumns]="displayColumns"
+                    [showIndex]="true"
+                    [loading]="loading$ | async"
+                    (queryParams)="onQueryParams($event)"
+                    [showPagination]="pagination.total > 0"
+            >
+                <ng-template [appCellTemplate]="'actions'" let-item>
+
+                    <button nz-button nzType="text" (click)="onEditItem(item)" class="cursor-pointer px-2">
+                        <i
+                            nz-icon
+                            nzType="edit"
+                            nzTheme="outline"
+                            nz-tooltip
+                            nzTooltipTitle="Sửa vai trò"
+                        ></i>
+                    </button>
+
+                </ng-template>
+
+            </app-table>
+        </div>
+    </div>
+</div>
+
+

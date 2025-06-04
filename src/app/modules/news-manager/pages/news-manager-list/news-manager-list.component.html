@@ -1,0 +1,253 @@
+
+
+<div class="bg-[#fff] rounded-[8px] mb-[10px]">
+  <app-title-box [title]="'Thông tin tìm kiếm'"></app-title-box>
+
+  <div class="p-3">
+    <form nz-form [formGroup]="form" (ngSubmit)="onSearch()">
+
+      <div nz-row [nzGutter]="10">
+
+        <div nz-col [nzSpan]="6" [nzXXl]="4" class="pb-3">
+          <div class="pb-1">Loại tin tức</div>
+          <app-form-control>
+            <app-select
+              formControlName="globalListDetailId"
+              [options]="typeArticle$ | async"
+              [placeholder]="'Tất cả'"
+              [allowClear]="true"
+              (ngModelChange)="onSearch()"
+              [showSearch]="true"
+            ></app-select>
+          </app-form-control>
+        </div>
+
+        <div nz-col [nzSpan]="6" [nzXXl]="4" class="pb-3">
+          <div class="pb-1">Trạng thái</div>
+          <app-form-control>
+            <app-select
+              formControlName="status"
+              [options]="optionStatusArticle"
+              [placeholder]="'Tất cả'"
+              [allowClear]="true"
+              (ngModelChange)="onSearch()"
+              [showSearch]="true"
+            ></app-select>
+          </app-form-control>
+        </div>
+
+        <div nz-col [nzSpan]="6" [nzXXl]="4" class="pb-3">
+          <div class="pb-1">Từ ngày</div>
+          <app-form-control>
+            <app-datepicker
+              formControlName="startTime"
+              [placeholder]="'DD/MM/YYYY'"
+              [disabledDate]="disabledFromDate"
+            ></app-datepicker>
+          </app-form-control>
+        </div>
+
+        <div nz-col [nzSpan]="6" [nzXXl]="4" class="pb-3">
+          <div class="pb-1">Đến ngày</div>
+          <app-form-control>
+            <app-datepicker
+              formControlName="endTime"
+              [placeholder]="'DD/MM/YYYY'"
+              [disabledDate]="disabledToDate"
+            ></app-datepicker>
+          </app-form-control>
+        </div>
+
+        <div nz-col [nzSpan]="10" [nzXXl]="8" class="pb-3">
+          <div class="pb-1">Tiêu đề</div>
+          <app-form-control>
+            <app-input
+              formControlName="title"
+            ></app-input>
+          </app-form-control>
+        </div>
+
+        <div nz-col [nzSpan]="14" [nzXXl]="24" class="pb-3">
+          <div nz-col class="pb-1" [nzSpan]="24" [nzXXl]="0">&nbsp;</div>
+
+          <div class="text-right">
+            <button
+              class="rounded"
+              nz-button
+              nzType="default"
+              [nzSize]="'default'"
+              style="min-width: 100px;"
+              type="button"
+              (click)="clearSearchForm()"
+            >
+              <span nz-icon nzType="redo" nzTheme="outline"></span>
+              <span>Nhập lại</span>
+            </button>
+
+            <button
+              class="ml-2 rounded"
+              nz-button
+              nzType="primary"
+              [nzSize]="'default'"
+              [nzLoading]="loading$ | async"
+              type="submit"
+              style="min-width: 100px;"
+            >
+              <span nz-icon nzType="search" nzTheme="outline"></span>
+              <span>Tìm kiếm</span>
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </form>
+  </div>
+
+</div>
+
+<div class="bg-[#fff] rounded-[8px]">
+
+  <h3 class="border-b p-3 font-medium flex justify-between items-center">
+    <span>Danh sách tin tức</span>
+
+
+    <span>
+
+      <button
+        class="rounded"
+        nz-button
+        nzType="primary"
+        [nzSize]="'default'"
+        style="min-width: 100px;"
+        type="button"
+        (click)="updatePositionPost()"
+        [disabled]="!(formValueAllowUpdatePosition && isMoveItems)"
+        [nzLoading]="loadingUpdatePosition"
+      >
+        <span nz-icon nzType="icons:icn-reload"></span>
+        <span>Cập nhật thứ tự</span>
+      </button>
+
+      <button
+        class="ml-2 rounded"
+        nz-button
+        nzType="primary"
+        [nzSize]="'default'"
+        style="min-width: 100px;"
+        type="button"
+        (click)="navigateToCreate()"
+        *hasRole="[roleUser.ADMIN, roleUser.USER]"
+      >
+        <span nz-icon nzType="plus" nzTheme="outline"></span>
+        <span>Thêm mới</span>
+      </button>
+    </span>
+
+  </h3>
+
+
+  <div class="table-list p-3">
+    <div class="basis-0 grow shrink">
+      <app-table
+        [columns]="columns"
+        [items]="items"
+        [pagination]="pagination"
+        [scrollX]="'1300px'"
+        (queryParams)="onQueryParams($event)"
+        [displayColumns]="displayColumns"
+        [showIndex]="true"
+        [loading]="loading$ | async"
+        [showPagination]="!formValueAllowUpdatePosition"
+        [enableDragDrop]="formValueAllowUpdatePosition"
+        [showDrag]="formValueAllowUpdatePosition"
+        (byDrop)="onDragDrop($event)"
+      >
+        <ng-template [appCellTemplate]="'isHot'" let-item>
+          <ng-container *ngIf="item.isHot"><i nz-icon nzType="check" nzTheme="outline"></i></ng-container>
+        </ng-template>
+        
+        <ng-template [appCellTemplate]="'actions'" let-item>
+
+          <div class="flex items-center justify-center">
+            <button
+              nz-button
+              nzType="text"
+              class="cursor-pointer px-1"
+              (click)="navigateToDetailEdit(item)"
+              *hasRole="[roleUser.ADMIN, roleUser.USER]"
+            >
+              <i
+                nz-icon
+                nzType="edit"
+                nzTheme="outline"
+                nz-tooltip
+                nzTooltipTitle="Sửa bài viết"
+              ></i>
+            </button>
+
+            <button
+              nz-button
+              nzType="text"
+              class="cursor-pointer px-1"
+              (click)="navigateToDetailView(item)"
+              *hasRole="[roleUser.APPROVER]"
+            >
+              <i
+                nz-icon
+                nzType="eye"
+                nzTheme="outline"
+                nz-tooltip
+                nzTooltipTitle="Xem chi tiết bài viết"
+              ></i>
+            </button>
+
+            <button
+              nz-button
+              nzType="text"
+              class="cursor-pointer px-1"
+              (click)="openModalConfirmDelete(item)"
+              *hasRole="[roleUser.ADMIN, roleUser.USER]"
+            >
+              <i
+                nz-icon
+                nzType="delete"
+                nzTheme="outline"
+                nz-tooltip
+                nzTooltipTitle="Xóa bài viết"
+              ></i>
+            </button>
+
+            <ng-container *ngIf="item.status === statusArticle.TuChoi">
+              <button
+                nz-button
+                nzType="text"
+                class="cursor-pointer px-1"
+                (click)="openModalConfirmSendApprove(item)"
+                *hasRole="[roleUser.ADMIN, roleUser.USER]"
+              >
+                <i
+                  nz-icon
+                  nzType="icons:icn-send"
+                  nz-tooltip
+                  class="text-[15px]"
+                  nzTooltipTitle="Gửi duyệt bài viết"
+                ></i>
+              </button>
+            </ng-container>
+
+          </div>
+
+        </ng-template>
+
+        <ng-template [appCellTemplate]="'reason'" let-item>
+          <span *ngIf="item.status === statusArticle.TuChoi" [title]="item?.reason || ''">{{item?.reason || ''}}</span>
+        </ng-template>
+      </app-table>
+    </div>
+  </div>
+</div>
+
+

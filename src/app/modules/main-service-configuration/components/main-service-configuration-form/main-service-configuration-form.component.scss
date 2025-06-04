@@ -1,0 +1,31 @@
+.card-container {
+  background-color: #fff;
+  // padding:  0.75rem;
+  border-radius: 8px;
+}
+
+.button {
+    background-color: rgb(245, 211, 167);
+    border-radius: 8px;
+    height: auto;
+    margin-right: 10px;
+
+}
+
+::ng-deep .cdk-drag-preview {
+  display: table;
+}
+
+::ng-deep .cdk-drag-placeholder {
+  opacity: 0;
+  background: red !important;
+  border: dotted 3px #999;
+  min-height: 60px;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+.custom-placeholder {
+  background: red !important;
+  border: dotted 3px #999;
+  min-height: 60px;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
