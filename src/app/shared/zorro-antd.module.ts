@@ -35,6 +35,7 @@ import { NzPopconfirmModule } from "ng-zorro-antd/popconfirm";
 import { NzEmptyModule } from "ng-zorro-antd/empty";
 import {NzSkeletonModule} from "ng-zorro-antd/skeleton";
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 @NgModule({
   exports: [
     NzModalModule,
@@ -75,6 +76,7 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
     NzEmptyModule,
     NzSkeletonModule,
     NzSwitchModule,
+    ScrollingModule,
   ]
 })
 export class ZorroAntdModule {}
