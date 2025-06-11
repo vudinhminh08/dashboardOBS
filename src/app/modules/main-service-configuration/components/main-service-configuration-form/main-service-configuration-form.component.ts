@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TrackByFunction } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { HttpClient } from '@angular/common/http';
 import { BaseDestroyComponent } from '@core/components';
@@ -37,4 +37,8 @@ export class MainServiceConfigurationFormComponent extends BaseDestroyComponent 
     await this.generateSampleData();
     console.log('Sample data generated:', this.sampleData);
   }
+
+  trackByIndex: TrackByFunction<any> = (index: number, item: any) => {
+    return item.id || index; // Sử dụng id duy nhất nếu có
+  };
 }

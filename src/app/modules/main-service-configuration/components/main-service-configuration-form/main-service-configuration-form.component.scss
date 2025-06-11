@@ -1,5 +1,5 @@
 .card-container {
-  background-color: #fff;
+  //background-color: #fff;
   // padding:  0.75rem;
   border-radius: 8px;
 }
@@ -11,25 +11,11 @@
     margin-right: 10px;
 
 }
-
-::ng-deep .cdk-drag-preview {
-  display: table;
+.item-title {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
-
-::ng-deep .cdk-drag-placeholder {
-  opacity: 0;
-  background: red !important;
-  border: dotted 3px #999;
-  min-height: 60px;
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-.custom-placeholder {
-  background: red !important;
-  border: dotted 3px #999;
-  min-height: 60px;
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
 
 .table-list {
   border: 1px solid #ddd;
@@ -47,19 +33,102 @@
 
 .nz-table-container {
   position: relative;
+  border: 2px solid #d9d9d9;
+  border-radius: 12px;
 }
 
 .virtual-scroll-viewport {
   height: 400px; /* Match the height of your original nzScroll.y */
   width: 100%;
   overflow-x: auto;
+  background-color: #FFFFFF;;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 
 table[nz-table] {
   width: 100%;
   table-layout: fixed;
+  background-color: #FFFFFF;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.table-header{
+  width: 100%;
+  table-layout: fixed;
+  background-color: #cbd5f1!important;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 tr {
   height: 48px; /* Match itemSize in cdk-virtual-scroll-viewport */
+}
+
+
+.card-item {
+  margin-bottom: 12px;
+  border: 2px solid #d9d9d9;
+  height: 85%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  background-color: #fff;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+}
+
+.date, .value {
+  font-size: 40px;
+  font-weight: bold;
+  color: #666;
+  text-align: center;
+}
+
+.label-card-item {
+  color: #666;
+  text-align: center;
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse; /* Ensures borders are merged */
+  border: 1px solid #d9d9d9; /* Mimics NgZorro's default border color */
+}
+
+.custom-table td {
+  border: 1px solid #d9d9d9; /* Border for each cell */
+  padding: 0 8px;
+}
+
+.custom-table tr {
+  border-bottom: 1px solid #d9d9d9; /* Ensures row separation */
+}
+
+
+
+nz-table {
+  width: 100%;
+  border-collapse: collapse; /* Đảm bảo các border không bị chồng lấn */
+}
+
+nz-table th,
+nz-table td {
+  border: 1px solid #ddd; /* Border 1px màu xám nhạt */
+  padding: 8px;
+  box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước ô */
+}
+
+nz-table th {
+  background-color: #f5f5f5;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }

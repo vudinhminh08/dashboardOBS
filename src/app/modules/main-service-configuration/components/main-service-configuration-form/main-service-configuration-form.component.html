@@ -2,9 +2,9 @@
   <nz-spin nzTip="Loading..."></nz-spin>
 </div>
   <div class="card-container mb-4">
-    <section class="flex justify-between border-b">
+    <section class="flex justify-between item-title">
       <div class="flex items-center">
-        <h3 class="p-3 font-medium">Kết quả tìm kiếm</h3>
+        <h3 class="p-3 font-large font-bold">Dashboard chất lượng dịch vụ</h3>
       </div>
       <div class="flex gap-2 mt-3 mb-3 mr-2">
         <button nz-button nzType="primary" class="btn-submit rounded-[8px]" type="button"
@@ -18,447 +18,205 @@
         </button>
       </div>
     </section>
+    <div class="mt-6">
+      <nz-row [nzGutter]="16">
+        <nz-col [nzSpan]="6">
+          <nz-card class="card-item stats-card" [nzHoverable]="true">
+            <div class="date">4/6/2025</div>
+            <div class="label-card-item">Ngày dữ liệu</div>
+          </nz-card>
+        </nz-col>
+        <nz-col [nzSpan]="6">
+          <nz-card class="card-item" [nzHoverable]="true">
+            <div class="value">0</div>
+            <div class="label-card-item">iPay.Số lần downtime trong ngày</div>
+          </nz-card>
+        </nz-col>
+        <nz-col [nzSpan]="6">
+          <nz-card class="card-item" [nzHoverable]="true">
+            <div class="value">0</div>
+            <div class="label-card-item">iPay.Thời gian downtime trong ngày (phút)</div>
+          </nz-card>
+        </nz-col>
+        <nz-col [nzSpan]="6">
+          <nz-card class="card-item" [nzHoverable]="true">
+            <div class="value">0</div>
+            <div class="label-card-item">eFast.Số lần downtime trong ngày</div>
+          </nz-card>
+        </nz-col>
+      </nz-row>
+    </div>
 
-    <div class="table-list p-3" style="margin-bottom: 20px;">
-      <div class="basis-0 grow shrink">
-        <div class="nz-table-container">
-          <table nz-table  nzTableLayout="fixed">
-            <thead>
-            <tr>
-              <th nzAlign="center" nzWidth="50px">STT</th>
-              <th nzAlign="center" nzWidth="70px" nzRight>Thao tác</th>
-              <th nzAlign="center" nzWidth="150px">Mã dịch vụ</th>
-              <th nzAlign="center" nzWidth="150px">Tên dịch vụ</th>
-              <th nzAlign="center" nzWidth="250px">Mô tả</th>
-              <th nzAlign="center" nzWidth="150px">Người tạo</th>
-              <th nzAlign="center" nzWidth="150px">Thời điểm tạo</th>
-              <th nzAlign="center" nzWidth="100px">Trạng thái</th>
+    <div>
+      <div class="flex items-center">
+        <h3 class="p-3 font-large font-bold" style="font-size: 18px; color: #666">Hệ thống thẻ TW</h3>
+      </div>
+      <nz-row [nzGutter]="16">
+        <nz-col [nzSpan]="12">
+          <nz-card class="card-item stats-card" [nzHoverable]="true">
+            <div class="date">4/6/2025</div>
+            <div class="label-card-item">Ngày dữ liệu</div>
+          </nz-card>
+        </nz-col>
+        <nz-col [nzSpan]="12">
+          <nz-card class="card-item" [nzHoverable]="true">
+            <div class="value">0</div>
+            <div class="label-card-item">iPay.Số lần downtime trong ngày</div>
+          </nz-card>
+        </nz-col>
+      </nz-row>
+    </div>
+
+    <div class="basis-0 grow shrink">
+      <div class="nz-table-container">
+        <!-- TABLE HEADER -->
+        <table class="table-header" style="table-layout: fixed; width: 100%; background-color: #FFFFFF">
+          <colgroup>
+            <col style="width: 50px" />
+            <col style="width: 70px" />
+            <col style="width: 150px" />
+            <col style="width: 150px" />
+            <col style="width: 250px" />
+            <col style="width: 150px" />
+            <col style="width: 150px" />
+            <col style="width: 100px" />
+          </colgroup>
+          <thead class="set-color-header">
+          <tr>
+            <th>STT</th>
+            <th>Thao tác</th>
+            <th>Mã dịch vụ</th>
+            <th>Tên dịch vụ</th>
+            <th>Mô tả</th>
+            <th>Người tạo</th>
+            <th>Thời điểm tạo</th>
+            <th>Trạng thái</th>
+          </tr>
+          </thead>
+        </table>
+
+        <!-- TABLE BODY (VIRTUAL SCROLL) -->
+        <cdk-virtual-scroll-viewport itemSize="48" class="virtual-scroll-viewport" style="height: 400px">
+          <table class="custom-table">
+            <colgroup>
+              <col style="width: 50px" />
+              <col style="width: 70px" />
+              <col style="width: 150px" />
+              <col style="width: 150px" />
+              <col style="width: 250px" />
+              <col style="width: 150px" />
+              <col style="width: 150px" />
+              <col style="width: 100px" />
+            </colgroup>
+            <tbody>
+            <tr
+              class="cursor-pointer"
+              *cdkVirtualFor="let x of sampleData; let i = index"
+              cdkDrag
+            >
+              <td nzAlign="center">{{ i + 1 }}</td>
+              <td nzAlign="center">{{ x.activity }}</td>
+              <td nzAlign="left" nzEllipsis>{{ x.code }}</td>
+              <td nzAlign="left" nzEllipsis>{{ x.name }}</td>
+              <td nzAlign="left" nzEllipsis>{{ x.description }}</td>
+              <td nzAlign="left" nzEllipsis>{{ x.user }}</td>
+              <td nzAlign="center" nzEllipsis>{{ x.createdAt }}</td>
+              <td>{{ x.status }}</td>
             </tr>
-            </thead>
+            </tbody>
           </table>
-          <cdk-virtual-scroll-viewport itemSize="48" class="virtual-scroll-viewport">
-            <table nz-table  nzTableLayout="fixed">
-              <tbody>
-              <tr
-                class="cursor-pointer"
-                *cdkVirtualFor="let x of sampleData; let i = index"
-                cdkDrag
-              >
-                <td nzAlign="center" nzWidth="50px">{{ i + 1 }}</td>
-                <td nzAlign="center" nzWidth="70px">{{ x.activity }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.code }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.name }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="250px">{{ x.description }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.user }}</td>
-                <td nzAlign="center" nzEllipsis nzWidth="150px">{{ x.createdAt }}</td>
-                <td nzWidth="100px">{{ x.status }}</td>
-              </tr>
-              </tbody>
-            </table>
-          </cdk-virtual-scroll-viewport>
-        </div>
+        </cdk-virtual-scroll-viewport>
       </div>
     </div>
-    <div class="table-list p-3" style="margin-bottom: 20px;">
-      <div class="basis-0 grow shrink">
-        <div class="nz-table-container">
-          <table nz-table  nzTableLayout="fixed">
-            <thead>
-            <tr>
-              <th nzAlign="center" nzWidth="50px">STT</th>
-              <th nzAlign="center" nzWidth="70px" nzRight>Thao tác</th>
-              <th nzAlign="center" nzWidth="150px">Mã dịch vụ</th>
-              <th nzAlign="center" nzWidth="150px">Tên dịch vụ</th>
-              <th nzAlign="center" nzWidth="250px">Mô tả</th>
-              <th nzAlign="center" nzWidth="150px">Người tạo</th>
-              <th nzAlign="center" nzWidth="150px">Thời điểm tạo</th>
-              <th nzAlign="center" nzWidth="100px">Trạng thái</th>
-            </tr>
-            </thead>
-          </table>
-          <cdk-virtual-scroll-viewport itemSize="48" class="virtual-scroll-viewport">
-            <table nz-table  nzTableLayout="fixed">
+
+    <div>
+      <div class="flex items-center">
+        <h3 class="p-3 font-large font-bold" style="font-size: 18px; color: #666">Hệ thống thẻ TW</h3>
+      </div>
+      <nz-row [nzGutter]="16">
+        <nz-col [nzSpan]="12">
+          <div class="basis-0 grow shrink">
+            <nz-table
+              #virtualTable
+              nzVirtualScroll
+              [nzData]="sampleData"
+              [nzVirtualItemSize]="48"
+              [nzVirtualMaxBufferPx]="200"
+              [nzVirtualMinBufferPx]="48"
+              [nzScroll]="{ x: '870px', y: '400px' }"
+              [nzFrontPagination]="false"
+              [nzVirtualForTrackBy]="trackByIndex"
+            >
+              <thead>
+              <tr>
+                <th nzWidth="50px">STT</th>
+                <th nzWidth="70px">Thao tác</th>
+                <th nzWidth="150px">Mã dịch vụ</th>
+                <th nzWidth="150px">Tên dịch vụ</th>
+                <th nzWidth="250px">Mô tả</th>
+                <th nzWidth="150px">Người tạo</th>
+                <th nzWidth="150px">Thời điểm tạo</th>
+                <th nzWidth="100px">Trạng thái</th>
+              </tr>
+              </thead>
               <tbody>
-              <tr
-                class="cursor-pointer"
-                *cdkVirtualFor="let x of sampleData; let i = index"
-                cdkDrag
-              >
-                <td nzAlign="center" nzWidth="50px">{{ i + 1 }}</td>
-                <td nzAlign="center" nzWidth="70px">{{ x.activity }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.code }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.name }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="250px">{{ x.description }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.user }}</td>
-                <td nzAlign="center" nzEllipsis nzWidth="150px">{{ x.createdAt }}</td>
-                <td nzWidth="100px">{{ x.status }}</td>
+              <tr *ngFor="let x of virtualTable.data; let i = index">
+                <td nzAlign="center">{{ i + 1 }}</td>
+                <td nzAlign="center">{{ x.activity }}</td>
+                <td nzAlign="left" nzEllipsis>{{ x.code }}</td>
+                <td nzAlign="left" nzEllipsis>{{ x.name }}</td>
+                <td nzAlign="left" nzEllipsis>{{ x.description }}</td>
+                <td nzAlign="left" nzEllipsis>{{ x.user }}</td>
+                <td nzAlign="center" nzEllipsis>{{ x.createdAt }}</td>
+                <td>{{ x.status }}</td>
               </tr>
               </tbody>
-            </table>
-          </cdk-virtual-scroll-viewport>
-        </div>
-      </div>
-    </div>
-    <div class="table-list p-3" style="margin-bottom: 20px;">
-      <div class="basis-0 grow shrink">
-        <div class="nz-table-container">
-          <table nz-table  nzTableLayout="fixed">
-            <thead>
-            <tr>
-              <th nzAlign="center" nzWidth="50px">STT</th>
-              <th nzAlign="center" nzWidth="70px" nzRight>Thao tác</th>
-              <th nzAlign="center" nzWidth="150px">Mã dịch vụ</th>
-              <th nzAlign="center" nzWidth="150px">Tên dịch vụ</th>
-              <th nzAlign="center" nzWidth="250px">Mô tả</th>
-              <th nzAlign="center" nzWidth="150px">Người tạo</th>
-              <th nzAlign="center" nzWidth="150px">Thời điểm tạo</th>
-              <th nzAlign="center" nzWidth="100px">Trạng thái</th>
-            </tr>
-            </thead>
-          </table>
-          <cdk-virtual-scroll-viewport itemSize="48" class="virtual-scroll-viewport">
-            <table nz-table  nzTableLayout="fixed">
+            </nz-table>
+          </div>
+        </nz-col>
+        <nz-col [nzSpan]="12">
+          <div class="basis-0 grow shrink">
+            <nz-table
+              #virtualTable
+              nzVirtualScroll
+              [nzData]="sampleData"
+              [nzVirtualItemSize]="48"
+              [nzVirtualMaxBufferPx]="200"
+              [nzVirtualMinBufferPx]="48"
+              [nzScroll]="{ x: '870px', y: '400px' }"
+              [nzFrontPagination]="false"
+              [nzVirtualForTrackBy]="trackByIndex"
+            >
+              <thead>
+              <tr>
+                <th nzWidth="50px">STT</th>
+                <th nzWidth="70px">Thao tác</th>
+                <th nzWidth="150px">Mã dịch vụ</th>
+                <th nzWidth="150px">Tên dịch vụ</th>
+                <th nzWidth="250px">Mô tả</th>
+                <th nzWidth="150px">Người tạo</th>
+                <th nzWidth="150px">Thời điểm tạo</th>
+                <th nzWidth="100px">Trạng thái</th>
+              </tr>
+              </thead>
               <tbody>
-              <tr
-                class="cursor-pointer"
-                *cdkVirtualFor="let x of sampleData; let i = index"
-                cdkDrag
-              >
-                <td nzAlign="center" nzWidth="50px">{{ i + 1 }}</td>
-                <td nzAlign="center" nzWidth="70px">{{ x.activity }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.code }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.name }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="250px">{{ x.description }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.user }}</td>
-                <td nzAlign="center" nzEllipsis nzWidth="150px">{{ x.createdAt }}</td>
-                <td nzWidth="100px">{{ x.status }}</td>
+              <tr *ngFor="let x of virtualTable.data; let i = index">
+                <td nzAlign="center">{{ i + 1 }}</td>
+                <td nzAlign="center">{{ x.activity }}</td>
+                <td nzAlign="left" nzEllipsis>{{ x.code }}</td>
+                <td nzAlign="left" nzEllipsis>{{ x.name }}</td>
+                <td nzAlign="left" nzEllipsis>{{ x.description }}</td>
+                <td nzAlign="left" nzEllipsis>{{ x.user }}</td>
+                <td nzAlign="center" nzEllipsis>{{ x.createdAt }}</td>
+                <td>{{ x.status }}</td>
               </tr>
               </tbody>
-            </table>
-          </cdk-virtual-scroll-viewport>
-        </div>
-      </div>
+            </nz-table>
+          </div>
+        </nz-col>
+      </nz-row>
     </div>
-    <div class="table-list p-3" style="margin-bottom: 20px;">
-      <div class="basis-0 grow shrink">
-        <div class="nz-table-container">
-          <table nz-table  nzTableLayout="fixed">
-            <thead>
-            <tr>
-              <th nzAlign="center" nzWidth="50px">STT</th>
-              <th nzAlign="center" nzWidth="70px" nzRight>Thao tác</th>
-              <th nzAlign="center" nzWidth="150px">Mã dịch vụ</th>
-              <th nzAlign="center" nzWidth="150px">Tên dịch vụ</th>
-              <th nzAlign="center" nzWidth="250px">Mô tả</th>
-              <th nzAlign="center" nzWidth="150px">Người tạo</th>
-              <th nzAlign="center" nzWidth="150px">Thời điểm tạo</th>
-              <th nzAlign="center" nzWidth="100px">Trạng thái</th>
-            </tr>
-            </thead>
-          </table>
-          <cdk-virtual-scroll-viewport itemSize="48" class="virtual-scroll-viewport">
-            <table nz-table nzTableLayout="fixed">
-              <tbody>
-              <tr
-                class="cursor-pointer"
-                *cdkVirtualFor="let x of sampleData; let i = index"
-                cdkDrag
-              >
-                <td nzAlign="center" nzWidth="50px">{{ i + 1 }}</td>
-                <td nzAlign="center" nzWidth="70px">{{ x.activity }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.code }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.name }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="250px">{{ x.description }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.user }}</td>
-                <td nzAlign="center" nzEllipsis nzWidth="150px">{{ x.createdAt }}</td>
-                <td nzWidth="100px">{{ x.status }}</td>
-              </tr>
-              </tbody>
-            </table>
-          </cdk-virtual-scroll-viewport>
-        </div>
-      </div>
-    </div>
-    <div class="table-list p-3" style="margin-bottom: 20px;">
-      <div class="basis-0 grow shrink">
-        <div class="nz-table-container">
-          <table nz-table  nzTableLayout="fixed">
-            <thead>
-            <tr>
-              <th nzAlign="center" nzWidth="50px">STT</th>
-              <th nzAlign="center" nzWidth="70px" nzRight>Thao tác</th>
-              <th nzAlign="center" nzWidth="150px">Mã dịch vụ</th>
-              <th nzAlign="center" nzWidth="150px">Tên dịch vụ</th>
-              <th nzAlign="center" nzWidth="250px">Mô tả</th>
-              <th nzAlign="center" nzWidth="150px">Người tạo</th>
-              <th nzAlign="center" nzWidth="150px">Thời điểm tạo</th>
-              <th nzAlign="center" nzWidth="100px">Trạng thái</th>
-            </tr>
-            </thead>
-          </table>
-          <cdk-virtual-scroll-viewport itemSize="48" class="virtual-scroll-viewport">
-            <table nz-table nzTableLayout="fixed">
-              <tbody>
-              <tr
-                class="cursor-pointer"
-                *cdkVirtualFor="let x of sampleData; let i = index"
-                cdkDrag
-              >
-                <td nzAlign="center" nzWidth="50px">{{ i + 1 }}</td>
-                <td nzAlign="center" nzWidth="70px">{{ x.activity }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.code }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.name }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="250px">{{ x.description }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.user }}</td>
-                <td nzAlign="center" nzEllipsis nzWidth="150px">{{ x.createdAt }}</td>
-                <td nzWidth="100px">{{ x.status }}</td>
-              </tr>
-              </tbody>
-            </table>
-          </cdk-virtual-scroll-viewport>
-        </div>
-      </div>
-    </div>
-    <div class="table-list p-3" style="margin-bottom: 20px;">
-      <div class="basis-0 grow shrink">
-        <div class="nz-table-container">
-          <table nz-table  nzTableLayout="fixed">
-            <thead>
-            <tr>
-              <th nzAlign="center" nzWidth="50px">STT</th>
-              <th nzAlign="center" nzWidth="70px" nzRight>Thao tác</th>
-              <th nzAlign="center" nzWidth="150px">Mã dịch vụ</th>
-              <th nzAlign="center" nzWidth="150px">Tên dịch vụ</th>
-              <th nzAlign="center" nzWidth="250px">Mô tả</th>
-              <th nzAlign="center" nzWidth="150px">Người tạo</th>
-              <th nzAlign="center" nzWidth="150px">Thời điểm tạo</th>
-              <th nzAlign="center" nzWidth="100px">Trạng thái</th>
-            </tr>
-            </thead>
-          </table>
-          <cdk-virtual-scroll-viewport itemSize="48" class="virtual-scroll-viewport">
-            <table nz-table nzTableLayout="fixed">
-              <tbody>
-              <tr
-                class="cursor-pointer"
-                *cdkVirtualFor="let x of sampleData; let i = index"
-                cdkDrag
-              >
-                <td nzAlign="center" nzWidth="50px">{{ i + 1 }}</td>
-                <td nzAlign="center" nzWidth="70px">{{ x.activity }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.code }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.name }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="250px">{{ x.description }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.user }}</td>
-                <td nzAlign="center" nzEllipsis nzWidth="150px">{{ x.createdAt }}</td>
-                <td nzWidth="100px">{{ x.status }}</td>
-              </tr>
-              </tbody>
-            </table>
-          </cdk-virtual-scroll-viewport>
-        </div>
-      </div>
-    </div>
-    <div class="table-list p-3" style="margin-bottom: 20px;">
-      <div class="basis-0 grow shrink">
-        <div class="nz-table-container">
-          <table nz-table  nzTableLayout="fixed">
-            <thead>
-            <tr>
-              <th nzAlign="center" nzWidth="50px">STT</th>
-              <th nzAlign="center" nzWidth="70px" nzRight>Thao tác</th>
-              <th nzAlign="center" nzWidth="150px">Mã dịch vụ</th>
-              <th nzAlign="center" nzWidth="150px">Tên dịch vụ</th>
-              <th nzAlign="center" nzWidth="250px">Mô tả</th>
-              <th nzAlign="center" nzWidth="150px">Người tạo</th>
-              <th nzAlign="center" nzWidth="150px">Thời điểm tạo</th>
-              <th nzAlign="center" nzWidth="100px">Trạng thái</th>
-            </tr>
-            </thead>
-          </table>
-          <cdk-virtual-scroll-viewport itemSize="48" class="virtual-scroll-viewport">
-            <table nz-table nzTableLayout="fixed">
-              <tbody>
-              <tr
-                class="cursor-pointer"
-                *cdkVirtualFor="let x of sampleData; let i = index"
-                cdkDrag
-              >
-                <td nzAlign="center" nzWidth="50px">{{ i + 1 }}</td>
-                <td nzAlign="center" nzWidth="70px">{{ x.activity }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.code }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.name }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="250px">{{ x.description }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.user }}</td>
-                <td nzAlign="center" nzEllipsis nzWidth="150px">{{ x.createdAt }}</td>
-                <td nzWidth="100px">{{ x.status }}</td>
-              </tr>
-              </tbody>
-            </table>
-          </cdk-virtual-scroll-viewport>
-        </div>
-      </div>
-    </div>
-    <div class="table-list p-3" style="margin-bottom: 20px;">
-      <div class="basis-0 grow shrink">
-        <div class="nz-table-container">
-          <table nz-table  nzTableLayout="fixed">
-            <thead>
-            <tr>
-              <th nzAlign="center" nzWidth="50px">STT</th>
-              <th nzAlign="center" nzWidth="70px" nzRight>Thao tác</th>
-              <th nzAlign="center" nzWidth="150px">Mã dịch vụ</th>
-              <th nzAlign="center" nzWidth="150px">Tên dịch vụ</th>
-              <th nzAlign="center" nzWidth="250px">Mô tả</th>
-              <th nzAlign="center" nzWidth="150px">Người tạo</th>
-              <th nzAlign="center" nzWidth="150px">Thời điểm tạo</th>
-              <th nzAlign="center" nzWidth="100px">Trạng thái</th>
-            </tr>
-            </thead>
-          </table>
-          <cdk-virtual-scroll-viewport itemSize="48" class="virtual-scroll-viewport">
-            <table nz-table nzTableLayout="fixed">
-              <tbody>
-              <tr
-                class="cursor-pointer"
-                *cdkVirtualFor="let x of sampleData; let i = index"
-                cdkDrag
-              >
-                <td nzAlign="center" nzWidth="50px">{{ i + 1 }}</td>
-                <td nzAlign="center" nzWidth="70px">{{ x.activity }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.code }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.name }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="250px">{{ x.description }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.user }}</td>
-                <td nzAlign="center" nzEllipsis nzWidth="150px">{{ x.createdAt }}</td>
-                <td nzWidth="100px">{{ x.status }}</td>
-              </tr>
-              </tbody>
-            </table>
-          </cdk-virtual-scroll-viewport>
-        </div>
-      </div>
-    </div>
-    <div class="table-list p-3" style="margin-bottom: 20px;">
-      <div class="basis-0 grow shrink">
-        <div class="nz-table-container">
-          <table nz-table  nzTableLayout="fixed">
-            <thead>
-            <tr>
-              <th nzAlign="center" nzWidth="50px">STT</th>
-              <th nzAlign="center" nzWidth="70px" nzRight>Thao tác</th>
-              <th nzAlign="center" nzWidth="150px">Mã dịch vụ</th>
-              <th nzAlign="center" nzWidth="150px">Tên dịch vụ</th>
-              <th nzAlign="center" nzWidth="250px">Mô tả</th>
-              <th nzAlign="center" nzWidth="150px">Người tạo</th>
-              <th nzAlign="center" nzWidth="150px">Thời điểm tạo</th>
-              <th nzAlign="center" nzWidth="100px">Trạng thái</th>
-            </tr>
-            </thead>
-          </table>
-          <cdk-virtual-scroll-viewport itemSize="48" class="virtual-scroll-viewport">
-            <table nz-table nzTableLayout="fixed">
-              <tbody>
-              <tr
-                class="cursor-pointer"
-                *cdkVirtualFor="let x of sampleData; let i = index"
-                cdkDrag
-              >
-                <td nzAlign="center" nzWidth="50px">{{ i + 1 }}</td>
-                <td nzAlign="center" nzWidth="70px">{{ x.activity }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.code }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.name }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="250px">{{ x.description }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.user }}</td>
-                <td nzAlign="center" nzEllipsis nzWidth="150px">{{ x.createdAt }}</td>
-                <td nzWidth="100px">{{ x.status }}</td>
-              </tr>
-              </tbody>
-            </table>
-          </cdk-virtual-scroll-viewport>
-        </div>
-      </div>
-    </div>
-    <div class="table-list p-3" style="margin-bottom: 20px;">
-      <div class="basis-0 grow shrink">
-        <div class="nz-table-container">
-          <table nz-table  nzTableLayout="fixed">
-            <thead>
-            <tr>
-              <th nzAlign="center" nzWidth="50px">STT</th>
-              <th nzAlign="center" nzWidth="70px" nzRight>Thao tác</th>
-              <th nzAlign="center" nzWidth="150px">Mã dịch vụ</th>
-              <th nzAlign="center" nzWidth="150px">Tên dịch vụ</th>
-              <th nzAlign="center" nzWidth="250px">Mô tả</th>
-              <th nzAlign="center" nzWidth="150px">Người tạo</th>
-              <th nzAlign="center" nzWidth="150px">Thời điểm tạo</th>
-              <th nzAlign="center" nzWidth="100px">Trạng thái</th>
-            </tr>
-            </thead>
-          </table>
-          <cdk-virtual-scroll-viewport itemSize="48" class="virtual-scroll-viewport">
-            <table nz-table nzTableLayout="fixed">
-              <tbody>
-              <tr
-                class="cursor-pointer"
-                *cdkVirtualFor="let x of sampleData; let i = index"
-                cdkDrag
-              >
-                <td nzAlign="center" nzWidth="50px">{{ i + 1 }}</td>
-                <td nzAlign="center" nzWidth="70px">{{ x.activity }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.code }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.name }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="250px">{{ x.description }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.user }}</td>
-                <td nzAlign="center" nzEllipsis nzWidth="150px">{{ x.createdAt }}</td>
-                <td nzWidth="100px">{{ x.status }}</td>
-              </tr>
-              </tbody>
-            </table>
-          </cdk-virtual-scroll-viewport>
-        </div>
-      </div>
-    </div>
-    <div class="table-list p-3" style="margin-bottom: 20px;">
-      <div class="basis-0 grow shrink">
-        <div class="nz-table-container">
-          <table nz-table  nzTableLayout="fixed">
-            <thead>
-            <tr>
-              <th nzAlign="center" nzWidth="50px">STT</th>
-              <th nzAlign="center" nzWidth="70px" nzRight>Thao tác</th>
-              <th nzAlign="center" nzWidth="150px">Mã dịch vụ</th>
-              <th nzAlign="center" nzWidth="150px">Tên dịch vụ</th>
-              <th nzAlign="center" nzWidth="250px">Mô tả</th>
-              <th nzAlign="center" nzWidth="150px">Người tạo</th>
-              <th nzAlign="center" nzWidth="150px">Thời điểm tạo</th>
-              <th nzAlign="center" nzWidth="100px">Trạng thái</th>
-            </tr>
-            </thead>
-          </table>
-          <cdk-virtual-scroll-viewport itemSize="48" class="virtual-scroll-viewport">
-            <table nz-table nzTableLayout="fixed">
-              <tbody>
-              <tr
-                class="cursor-pointer"
-                *cdkVirtualFor="let x of sampleData; let i = index"
-                cdkDrag
-              >
-                <td nzAlign="center" nzWidth="50px">{{ i + 1 }}</td>
-                <td nzAlign="center" nzWidth="70px">{{ x.activity }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.code }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.name }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="250px">{{ x.description }}</td>
-                <td nzAlign="left" nzEllipsis nzWidth="150px">{{ x.user }}</td>
-                <td nzAlign="center" nzEllipsis nzWidth="150px">{{ x.createdAt }}</td>
-                <td nzWidth="100px">{{ x.status }}</td>
-              </tr>
-              </tbody>
-            </table>
-          </cdk-virtual-scroll-viewport>
-        </div>
-      </div>
-    </div>
+
 
   </div>
 

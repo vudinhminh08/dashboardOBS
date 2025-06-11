@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port=4201",
+    "start": "ng serve --port=4200",
     "build": "ng build",
     "build:int": "ng build --configuration int",
     "build:uat": "ng build --configuration uat",
