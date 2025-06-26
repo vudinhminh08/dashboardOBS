@@ -18,6 +18,7 @@ import { TitleBoxComponent } from '@shared/components/title-box/title-box.compon
 import { ConfirmationComponent } from '@shared/components/confirmation/confirmation.component';
 import { NzOutletModule } from 'ng-zorro-antd/core/outlet';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { DataTableModalComponent } from '@shared/components/data-table-modal.component';
 
 
 const components = [
@@ -31,6 +32,7 @@ const components = [
   CheckboxViewComponent,
   TitleBoxComponent,
   ConfirmationComponent,
+  DataTableModalComponent,
 ];
 
 @NgModule({

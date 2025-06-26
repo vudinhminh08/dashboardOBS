@@ -13,8 +13,14 @@ export class HttpHeaderInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    // Tạo requestId và requestTime
+    const requestId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const requestTime = new Date().toISOString();
+
     const headers = new HttpHeaders({
       'Accept-Language': 'vi',
+      'requestId': requestId,
+      'requestTime': requestTime
     });
 
     const modifiedRequest = request.clone({

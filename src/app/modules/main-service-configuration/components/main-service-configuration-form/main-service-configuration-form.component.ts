@@ -19,6 +19,16 @@ export class MainServiceConfigurationFormComponent extends BaseDestroyComponent 
   sampleData: any[] = [];
   isLoading = false;
 
+  isModalVisible = false;
+  modalColumns = [
+    { key: 'code', title: 'Mã dịch vụ' },
+    { key: 'name', title: 'Tên dịch vụ' },
+    { key: 'description', title: 'Mô tả' },
+    { key: 'createdBy', title: 'Người tạo' },
+    { key: 'createdAt', title: 'Thời điểm tạo' },
+    { key: 'status', title: 'Trạng thái' },
+  ];
+
   async generateSampleData(): Promise<void> {
     this.isLoading = true;
     try {
@@ -41,4 +51,17 @@ export class MainServiceConfigurationFormComponent extends BaseDestroyComponent 
   trackByIndex: TrackByFunction<any> = (index: number, item: any) => {
     return item.id || index; // Sử dụng id duy nhất nếu có
   };
+
+  openAddModal(): void {
+    this.isModalVisible = true;
+  }
+
+  handleModalSend(data: any[]): void {
+    // Handle the data sent from modal here
+    this.isModalVisible = false;
+  }
+
+  handleModalClose(): void {
+    this.isModalVisible = false;
+  }
 }

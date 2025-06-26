@@ -12,7 +12,7 @@
          <span nz-icon nzType="icons:icn-reload"></span>
           Cập nhật thứ tự
         </button>
-        <button nz-button nzType="primary" class="btn-submit rounded-[8px] mr-1" type="button">
+        <button nz-button nzType="primary" class="btn-submit rounded-[8px] mr-1" type="button" (click)="openAddModal()">
           <span nz-icon nzType="plus" nzTheme="outline"></span>
           Thêm mới
         </button>
@@ -217,7 +217,15 @@
       </nz-row>
     </div>
 
+    <!-- Data Table Modal -->
+    <app-data-table-modal
+      [isVisible]="isModalVisible"
+      [title]="'Danh sách dịch vụ'"
+      [data]="sampleData"
+      [columns]="modalColumns"
+      (send)="handleModalSend($event)"
+      (close)="handleModalClose()"
+    ></app-data-table-modal>
+
 
   </div>
-
-

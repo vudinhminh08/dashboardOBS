@@ -5,16 +5,11 @@ import { Router } from '@angular/router';
 import { changeCollapsed } from '../../state/sidebar/actions';
 import { MENUITEMS } from '@layout/content-layout/sidebar-menu';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { UserInfoModalComponent } from '@modules/auth/pages/components/user-info-modal/user-info-modal.component';
 import { selectChangeCollapsed } from '../../state/sidebar/selectors';
 import { takeUntil } from 'rxjs/operators';
 import { TokenStorageService } from '@modules/auth/service/token-storage.service';
 import { NotificationService } from '@core/services/notification.service';
 import { ItemUser } from '@modules/user-role/user-manager/models';
-import {
-  ChangePasswordModalComponent
-} from '@modules/auth/pages/components/change-password-modal/change-password-modal.component';
-
 @Component({
   selector: 'app-content-layout',
   templateUrl: './content-layout.component.html',
@@ -70,25 +65,25 @@ export class ContentLayoutComponent extends BaseDestroyComponent implements OnIn
 
 
   openDialogUserInfo() {
-    this.modal.create({
-      nzContent: UserInfoModalComponent,
-      nzFooter: null,
-      nzWidth: '580px',
-      nzTitle: 'Thông tin tài khoản',
-      nzCloseIcon: 'close',
-      nzMaskClosable: false
-    });
+    // this.modal.create({
+    //   nzContent: UserInfoModalComponent,
+    //   nzFooter: null,
+    //   nzWidth: '580px',
+    //   nzTitle: 'Thông tin tài khoản',
+    //   nzCloseIcon: 'close',
+    //   nzMaskClosable: false
+    // });
   }
 
   openDialogChangePassword() {
-    this.modal.create({
-      nzContent: ChangePasswordModalComponent,
-      nzFooter: null,
-      nzWidth: '580px',
-      nzTitle: 'Thay đổi mật khẩu',
-      nzCloseIcon: 'close',
-      nzMaskClosable: false
-    });
+    // this.modal.create({
+    //   nzContent: ChangePasswordModalComponent,
+    //   nzFooter: null,
+    //   nzWidth: '580px',
+    //   nzTitle: 'Thay đổi mật khẩu',
+    //   nzCloseIcon: 'close',
+    //   nzMaskClosable: false
+    // });
   }
 
 }
